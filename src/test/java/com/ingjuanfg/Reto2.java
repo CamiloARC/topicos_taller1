@@ -35,11 +35,11 @@ public class Reto2 {
         inputPassword.sendKeys("secret_sauce");
         buttonLogin.click();
 
-        WebElement priceProd1 = driver.findElement(By.xpath("(//div[@data-test='inventory-item-price'])[1]"));
-        WebElement priceProd2 = driver.findElement(By.xpath("(//div[@data-test='inventory-item-price'])[2]"));
-        WebElement buttonAddProd1 = driver.findElement(By.xpath("//button[@data-test='add-to-cart-sauce-labs-backpack']"));
-        WebElement buttonAddProd2 = driver.findElement(By.xpath("//button[@data-test='add-to-cart-sauce-labs-bike-light']"));
-        WebElement buttonCart = driver.findElement(By.xpath("//a[@data-test='shopping-cart-link']"));
+        WebElement priceProd1 = driver.findElement(By.xpath("//div[@data-test='inventory-item'][1]//div[@data-test='inventory-item-price']"));
+        WebElement priceProd2 = driver.findElement(By.xpath("//div[@data-test='inventory-item'][2]//div[@data-test='inventory-item-price']"));
+        WebElement buttonAddProd1 = driver.findElement(By.xpath("//div[@data-test='inventory-item'][1]//button"));
+        WebElement buttonAddProd2 = driver.findElement(By.xpath("//div[@data-test='inventory-item'][2]//button"));
+        WebElement buttonCart = driver.findElement(By.xpath("//div[@data-test='primary-header']/div/a"));
 
         buttonAddProd1.click();
         buttonAddProd2.click();
@@ -47,30 +47,32 @@ public class Reto2 {
         float price2 = Float.parseFloat(priceProd2.getText().replace("$", ""));
         buttonCart.click();
 
-        WebElement buttonCheckout = driver.findElement(By.xpath("//button[@data-test='checkout']"));
+        WebElement buttonCheckout = driver.findElement(By.xpath("//div[@class='cart_footer']/button[contains(text(), 'Checkout')]"));
         buttonCheckout.click();
 
-        WebElement inputFirstName = driver.findElement(By.xpath("//input[@data-test='firstName']"));
-        WebElement inputLasName = driver.findElement(By.xpath("//input[@data-test='lastName']"));
-        WebElement inputZip = driver.findElement(By.xpath("//input[@data-test='postalCode']"));
-        WebElement inputContinue = driver.findElement(By.xpath("//input[@data-test='continue']"));
+        WebElement inputFirstName = driver.findElement(By.xpath("//form/descendant::div[@class='form_group']/input[@data-test='firstName']"));
+        WebElement inputLasName = driver.findElement(By.xpath("//input[@data-test='firstName']/following::input[@data-test='lastName']"));
+        WebElement inputZip = driver.findElement(By.xpath("//input[@data-test='lastName']/following::input[@data-test='postalCode']"));
+        WebElement inputContinue = driver.findElement(By.xpath("//div[@class='checkout_buttons']/input"));
         inputFirstName.sendKeys("camilo");
         inputLasName.sendKeys("ramirez");
         inputZip.sendKeys("123456");
         inputContinue.click();
 
-        WebElement totalPrice = driver.findElement(By.xpath("//div[@data-test='subtotal-label']"));
-        WebElement buttonFinish = driver.findElement(By.xpath("//button[@data-test='finish']"));
+        WebElement subtotalPrice = driver.findElement(By.xpath("//div[@class='summary_info']/div[@data-test='subtotal-label']"));
+        WebElement buttonFinish = driver.findElement(By.xpath("//button[@data-test='cancel']/following-sibling::button"));
 
         // validar precios
-        float total = Float.parseFloat(totalPrice.getText().replace("Item total: $", ""));
+        float subtotal = Float.parseFloat(subtotalPrice.getText().replace("Item total: $", ""));
         float sum = price1 + price2;
-        assertEquals(sum, total);
+
+        //ASSERT 1
+        assertEquals(sum, subtotal);
 
         buttonFinish.click();
 
-        //ASSERT
-        WebElement pageTitle = driver.findElement(By.xpath("//span[@data-test='title']"));
+        //ASSERT 2
+        WebElement pageTitle = driver.findElement(By.xpath("//div[@data-test='secondary-header']/span"));
         assertEquals("Checkout: Complete!", pageTitle.getText());
     }
 
