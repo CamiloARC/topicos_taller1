@@ -8,22 +8,7 @@ Este repositorio contiene la primer entrega de la asignatura de Tópicos Avanzad
 
 - **Camilo Antonio Ramirez Castillo**
 
-## Instrucciones de Instalación
-
-Para instalar las dependencias necesarias, ejecute el siguiente comando:
-
-```bash
-
-```
-
-## Ejecución de Pruebas
-
-Para ejecutar todas las pruebas, utilice el siguiente comando:
-
-```bash
-
-```
-
 ## Requisitos
 
 - **Java** v17 o superior
+- **Chrome** v129.0.6668.71 recomendada

@@ -17,7 +17,7 @@ public class Reto1 {
 
     @BeforeEach
     public void configuracionInicial() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\camil\\Downloads\\chromedriver-win64\\chromedriver.exe");
+        // System.setProperty("webdriver.chrome.driver", "C:\\Users\\camil\\Downloads\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
     }
